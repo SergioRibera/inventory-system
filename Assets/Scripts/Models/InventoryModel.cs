@@ -1,18 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryModel : MonoBehaviour
+[Serializable]
+public class InventoryModel
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    List<Item> items;
+
+    public InventoryModel(){
+        items = new List<Item>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public bool Exists(int id) => Get(id) != null;
+    public Item Get(int id) => items.Find(i => i.id == id);
+    public Item Get(Item i) => Get(i.id);
+    public void Add(Item item) => items.Add(item);
+    public void Modify(int index, Item item) => items[index] = item;
+    public void Modify(Item item){
+        int index = items.IndexOf(item);
+        Modify(index, item);
     }
+    public void Remove(Item item) => items.Remove(item);
 }
