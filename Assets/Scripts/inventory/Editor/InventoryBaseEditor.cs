@@ -57,7 +57,7 @@ public class InventoryBaseEditor : Editor {
     {
         EditorGUILayout.BeginVertical("Box");
         EditorGUILayout.BeginHorizontal();
-            GUILayout.Label(item.name, h1);
+            GUILayout.Label(item.id + ".- " + item.name, h1);
             if (GUILayout.Button(item.editorShow ? "Show" : "Hidden", GUILayout.MaxWidth(80)))
                 item.editorShow = !item.editorShow;
         EditorGUILayout.EndHorizontal();

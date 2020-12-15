@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     [ReadOnly] public PlayerData data;
     public ScriptableInventory dataBase;
     public GameObject prefabItem;
-    public Transform positions;
+    public Transform[] positions;
     public List<Item> itemsOffer;
 
     void Awake() {
@@ -17,16 +17,23 @@ public class ShopManager : MonoBehaviour
         data = PlayerDataManager.data;
     }
     void Start() {
-        List<int> indexs = GenerateRandom(5, 0, dataBase.ItemsCount - 1);
+        List<int> indexs = GenerateRandom(4, 1, dataBase.ItemsCount);
         foreach(var i in indexs)
             itemsOffer.Add(dataBase.inventory.Get(i));
-
         InstanceItems();
     }
 
     void InstanceItems(){
+        int i = 0;
         foreach(var item in itemsOffer){
-
+            GameObject go = Instantiate(prefabItem, positions[i]);
+            go.transform.SetParent(positions[i]);
+            ItemObject io = go.GetComponent<ItemObject>();
+            io.SetTextToHover(i, this, $"{item.name} a {item.cost.costRuna} Runas.");
+            io.onClick += (index) => {
+                itemsOffer[index].selected = !itemsOffer[index].selected;
+            };
+            i++;
         }
     }
 

@@ -34,6 +34,7 @@ public class ItemCollectable {
         stackable = true;
     }
 }
-public struct CostItem {
+[Serializable]
+public class CostItem {
     public int costRuna;
 }
