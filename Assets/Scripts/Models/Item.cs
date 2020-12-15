@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Item
 {
     public int id;
     public string name, description;
-    public List<string> sellerDialogs;
+    //public List<string> sellerDialogs;
+    public string sellerDialog;
     public bool selected, editorShow;
     public ItemCollectable collectableData;
     public CostItem cost;
 
-    public Item(int i, string n, string desc){
+    public Item(int i, string n, string desc, string s){
         id = i;
         name = n;
         description = desc;
-        sellerDialogs = new List<string>();
+        sellerDialog = s;
         collectableData = new ItemCollectable();
         cost = new CostItem();
     }

@@ -1,33 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
-public class ContentModifiWindows : EditorWindow {
+public class AddItemWindows : EditorWindow {
 
-    static ScriptableInventory database;
-    static EditorWindow window;
+    private static ScriptableInventory database;
+    private static EditorWindow window;
 
-    static int idElement;
+    private static Item newItem;
+    private GUILayoutOption[] options = { GUILayout.MaxWidth(150.0f), GUILayout.MinWidth(20.0f) };
+
+    static GUIStyle h1 = new GUIStyle();
+    static GUIStyle textAreaStyle = new GUIStyle();
+    static GUIStyle valueStyle = new GUIStyle();
     Vector2 scroll, scrollDialog;
-    static GUILayoutOption[] options = { GUILayout.MaxWidth(150.0f), GUILayout.MinWidth(20.0f) };
-    public static void ShowWindow(ScriptableInventory db, int _id)
+    public static void ShowWindow(ScriptableInventory db)
     {
         database = db;
-        idElement = _id;
-        window = GetWindow<ContentModifiWindows>();
-        window.titleContent = new GUIContent("Edit Content For Languajes");
+        window = GetWindow<AddItemWindows>();
         window.minSize = new Vector2(300, 380);
-        /*contents = new List<string>();
-        foreach (var idioma in db.idiomas)
-            contents.Add(idioma.GetContent(idElement).content);*/
+        newItem = new Item(db.ItemsCount + 1, "", "", "");
+        newItem.editorShow = true;
+        newItem.selected = false;
+        textAreaStyle.wordWrap = true;
+        valueStyle.wordWrap = true;
+        valueStyle.alignment = TextAnchor.MiddleLeft;
+        h1.fontSize = 16;
+        window.titleContent = new GUIContent("Add new Item");
     }
 
     public void OnGUI()
     {
-        DisplayItem(database.inventory.Get(idElement));
-        if (GUILayout.Button("Confirm Edit"))
-            AddContents();
+        DisplayItem(newItem);
+        if (GUILayout.Button("Confirm"))
+            AddItem();
     }
     private void DisplayItem(Item item)
     {
@@ -82,9 +88,10 @@ public class ContentModifiWindows : EditorWindow {
         EditorGUILayout.EndVertical();
     }
 
-    private void AddContents()
+    private void AddItem()
     {
-        Undo.RecordObject(database, "Content Added");
+        Undo.RecordObject(database, "Item Added");
+        database.inventory.Add(newItem);
         EditorUtility.SetDirty(database);
         window.Close();
     }

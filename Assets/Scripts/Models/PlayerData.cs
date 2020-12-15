@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class PlayerData
+﻿public class PlayerData
 {
     public string name;
     public int runas;
