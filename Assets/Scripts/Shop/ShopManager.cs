@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
@@ -11,9 +13,19 @@ public class ShopManager : MonoBehaviour
     public GameObject prefabItem;
     public Transform[] positions;
     public List<Item> itemsOffer;
+    [Header("UI")]
+    public TextMeshProUGUI runaText;
+    public GameObject dialogContainer;
+    public TextMeshProUGUI dialogText;
 
+    List<ItemObject> itemObjects = new List<ItemObject>();
+    int costTotal = 0;
     void Awake() {
         PlayerDataManager.Load();
+        if(string.IsNullOrEmpty(PlayerDataManager.Name)){
+            PlayerDataManager.SetName("Sergio Ribera");
+            PlayerDataManager.SetRunas(10549);
+        }
         data = PlayerDataManager.data;
     }
     void Start() {
@@ -21,6 +33,7 @@ public class ShopManager : MonoBehaviour
         foreach(var i in indexs)
             itemsOffer.Add(dataBase.inventory.Get(i));
         InstanceItems();
+        runaText.text = PlayerDataManager.Runas + " Runas";
     }
 
     void InstanceItems(){
@@ -29,12 +42,40 @@ public class ShopManager : MonoBehaviour
             GameObject go = Instantiate(prefabItem, positions[i]);
             go.transform.SetParent(positions[i]);
             ItemObject io = go.GetComponent<ItemObject>();
-            io.SetTextToHover(i, this, $"{item.name} a {item.cost.costRuna} Runas.");
+            io.SetTextToHover(i, item.id, this, $"{item.name} a {item.cost.costRuna} Runas.", item.description);
             io.onClick += (index) => {
                 itemsOffer[index].selected = !itemsOffer[index].selected;
             };
+            itemObjects.Add(io);
             i++;
         }
+    }
+
+    public void Buy(){
+        List<Item> selecteds = itemsOffer.Where(i => i.selected).ToList();
+        print(selecteds.Count);
+        foreach(var s in selecteds)
+            costTotal += s.cost.costRuna;
+        if(costTotal > PlayerDataManager.Runas){
+            ShowDialog("Not have Runas for buy");
+            return;
+        }
+        foreach(var s in selecteds) {
+            ItemObject sio = itemObjects.Find(io => io.id == s.id);
+            Image imageSio = sio.gameObject.GetComponent<Image>();
+            imageSio.color = sio.hover;
+            imageSio.raycastTarget = false;
+            sio.Interactable = false;
+            s.selected = false;
+            PlayerDataManager.AddNewItem(s);
+        }
+        PlayerDataManager.SetRunas(PlayerDataManager.Runas - costTotal);
+        runaText.text = PlayerDataManager.Runas + " Runas";
+    }
+
+    public void ShowDialog(string text){
+        dialogContainer.SetActive(true);
+        dialogText.text = text;
     }
 
     public List<int> GenerateRandom(int count, int min, int max) {

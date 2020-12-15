@@ -39,7 +39,7 @@ public class PlayerDataManager
         if(!data.inventory.Exists(i.id))
             data.inventory.Add(i);
         else
-            data.inventory.Modify(i);
+            AddMoreItem(i);
     }
     ///
     /// <summary>Esta funcion sirve para Agregar más items y crear slots nuevos

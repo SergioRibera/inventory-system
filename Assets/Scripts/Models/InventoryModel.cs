@@ -8,28 +8,35 @@ public class InventoryModel
 {
     public List<Item> items;
 
-    public InventoryModel(){
+    public InventoryModel()
+    {
         items = new List<Item>();
     }
 
-    public bool Exists(int id) => Get(id) != null;
-    public Item Get(int id){
+    public bool Exists(int id) => items.Find(x => x.id == id)!= null;
+    public Item Get(int id)
+    {
         Item old = items.Find(x => x.id == id);
-        Item i = new Item(old.id, old.name, old.description, old.sellerDialog);
-        i.selected = false;
-        i.collectableData.amount = old.collectableData.amount;
-        i.collectableData.maxAmount = old.collectableData.maxAmount;
-        i.collectableData.minAmount = old.collectableData.minAmount;
-        i.collectableData.maxStacks = old.collectableData.maxStacks;
-        i.collectableData.minLevelUnlock = old.collectableData.minLevelUnlock;
-        i.collectableData.stackable = old.collectableData.stackable;
-        i.cost.costRuna = old.cost.costRuna;
-        return i;
+        if (old != null)
+        {
+            Item i = new Item(old.id, old.name, old.description, old.sellerDialog);
+            i.selected = false;
+            i.collectableData.amount = old.collectableData.amount;
+            i.collectableData.maxAmount = old.collectableData.maxAmount;
+            i.collectableData.minAmount = old.collectableData.minAmount;
+            i.collectableData.maxStacks = old.collectableData.maxStacks;
+            i.collectableData.minLevelUnlock = old.collectableData.minLevelUnlock;
+            i.collectableData.stackable = old.collectableData.stackable;
+            i.cost.costRuna = old.cost.costRuna;
+            return i;
+        }
+        return null;
     }
     public Item Get(Item i) => Get(i.id);
     public void Add(Item item) => items.Add(item);
     public void Modify(int index, Item item) => items[index] = item;
-    public void Modify(Item item){
+    public void Modify(Item item)
+    {
         int index = items.IndexOf(item);
         Modify(index, item);
     }

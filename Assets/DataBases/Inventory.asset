@@ -27,3 +27,65 @@ MonoBehaviour:
         maxStacks: 10
         minLevelUnlock: 0
         stackable: 1
+      cost:
+        costRuna: 12
+    - id: 2
+      name: Posion de Fuerza
+      description: 
+      sellerDialog: 
+      selected: 0
+      editorShow: 1
+      collectableData:
+        amount: 0
+        maxAmount: 64
+        minAmount: 0
+        maxStacks: 10
+        minLevelUnlock: 0
+        stackable: 1
+      cost:
+        costRuna: 10
+    - id: 3
+      name: Posion de Velocidad
+      description: 
+      sellerDialog: 
+      selected: 0
+      editorShow: 0
+      collectableData:
+        amount: 0
+        maxAmount: 64
+        minAmount: 0
+        maxStacks: 10
+        minLevelUnlock: 0
+        stackable: 1
+      cost:
+        costRuna: 53
+    - id: 4
+      name: Posion de Salto
+      description: 
+      sellerDialog: 
+      selected: 0
+      editorShow: 0
+      collectableData:
+        amount: 0
+        maxAmount: 64
+        minAmount: 0
+        maxStacks: 10
+        minLevelUnlock: 0
+        stackable: 1
+      cost:
+        costRuna: 25
+    - id: 5
+      name: Posion de Inmunidad
+      description: 
+      sellerDialog: 
+      selected: 0
+      editorShow: 0
+      collectableData:
+        amount: 0
+        maxAmount: 64
+        minAmount: 0
+        maxStacks: 10
+        minLevelUnlock: 0
+        stackable: 1
+      cost:
+        costRuna: 10
