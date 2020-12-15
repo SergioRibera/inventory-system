@@ -9,7 +9,7 @@ public class Item
     public int id;
     public string name, description;
     public List<string> sellerDialogs;
-    public bool selected;
+    public bool selected, editorShow;
     public ItemCollectable collectableData;
     public CostItem cost;
 
@@ -38,8 +38,4 @@ public class ItemCollectable {
 }
 public struct CostItem {
     public int costRuna;
-
-    public CostItem(){
-        costRuna = 0;
-    }
 }

@@ -10,6 +10,7 @@ public class PlayerDataManager
         private set;
         get;
     }
+
     public static void Load() =>
         data =
             SaveDataManager.Exist(typeof(PlayerData), PersistentData.SAVE_PATH) ?
