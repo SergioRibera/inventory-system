@@ -1,4 +1,7 @@
-﻿public class PlayerData
+﻿using System;
+
+[Serializable]
+public class PlayerData
 {
     public string name;
     public int runas;

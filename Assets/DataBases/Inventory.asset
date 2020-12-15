@@ -13,4 +13,17 @@ MonoBehaviour:
   m_Name: Inventory
   m_EditorClassIdentifier: 
   inventory:
-    items: []
+    items:
+    - id: 1
+      name: Posion de Vida
+      description: Esta posion tiene la capacidad de aumentar 20pts de vida
+      sellerDialog: Hace tiempo escuche que esta posion era mas que medicinal
+      selected: 0
+      editorShow: 1
+      collectableData:
+        amount: 0
+        maxAmount: 64
+        minAmount: 0
+        maxStacks: 10
+        minLevelUnlock: 0
+        stackable: 1
