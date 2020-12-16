@@ -53,7 +53,6 @@ public class ShopManager : MonoBehaviour
 
     public void Buy(){
         List<Item> selecteds = itemsOffer.Where(i => i.selected).ToList();
-        print(selecteds.Count);
         foreach(var s in selecteds)
             costTotal += s.cost.costRuna;
         if(costTotal > PlayerDataManager.Runas){
