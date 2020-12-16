@@ -13,7 +13,9 @@ public class InventoryModel
         items = new List<Item>();
     }
 
-    public bool Exists(int id) => items.Find(x => x.id == id)!= null;
+    public bool Exists(int id){
+        return items.Find(x => x.id == id)!= null;
+    }
     public Item Get(int id)
     {
         Item old = items.Find(x => x.id == id);
